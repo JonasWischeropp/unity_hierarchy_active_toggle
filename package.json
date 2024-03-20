@@ -1,0 +1,12 @@
+{
+  "name": "wischeropp.jonas.hierarchy-active-toggle",
+  "version": "1.0.0",
+  "displayName": "Hierarchy Gameobject Active Toggle",
+  "description": "Adds buttons to enable/disable gameobjects directly from the hierarchy",
+  "unity": "2022.3",
+  "unityRelease": "12f1",
+  "keywords": [],
+  "author": {
+    "name": "Jonas Wischeropp"
+  }
+}
