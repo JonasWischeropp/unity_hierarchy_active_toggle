@@ -2,8 +2,17 @@
 
 This package adds buttons to enable/disable gameobjects directly from the hierarchy.
 
-[.text-center]
-image::demonstration.gif[]
+ifdef::env-github[]
+++++
+<p align="center">
+  <img src="demonstration.gif", alt="Demonstration">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+image::demonstration.gif[Demonstration, align=center]
+endif::[]
 
 (Probably also works in other unity versions. I just have only tested it in 2022.3)
 
