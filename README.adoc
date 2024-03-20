@@ -21,7 +21,7 @@ Installation by using the Package Manager:
 
 . Click on the `+` in the `Package Manager` window
 . Chose `Add package from git URL...`
-. Insert the following URL `https://github.com/JonasWischeropp/unity_hierarchy_active_toggle`
+. Insert the following URL `https://github.com/JonasWischeropp/unity_hierarchy_active_toggle.git`
 . Press the `Add`-Button
 
 If necessary more information can be found link:https://docs.unity3d.com/Manual/upm-ui-giturl.html[here].
