@@ -7,18 +7,19 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
     internal class ActiveToggle {
         private static readonly Color prefabModifiedColor = new Color(0.05882353f, 0.5058824f, 0.7450981f); // 8AD9FF
         
-        private static readonly bool LEFT_ALIGNED = true;
-
         static ActiveToggle() {
             EditorApplication.hierarchyWindowItemOnGUI += Draw;
         }
         
         private static void Draw(int instanceID, Rect selectionRect) {
+            if (!ActiveToggleSettings.instance.Enabled)
+                return;
+
             var go = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
             if (go == null)
                 return;
 
-            int parentCount = LEFT_ALIGNED ? CountParents(go.transform) : 0;
+            int parentCount = ActiveToggleSettings.instance.Alignment == ToggleAlignment.Left ? CountParents(go.transform) : 0;
             GUILayout.BeginArea(new Rect(CalculateRectXValue(selectionRect, parentCount + 1),
                 selectionRect.y, selectionRect.height, selectionRect.height));
 

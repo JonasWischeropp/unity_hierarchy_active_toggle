@@ -1,6 +1,10 @@
+:experimental:
+
 = Hierarchy Gameobject Active Toggle (Unity)
 
-This package adds buttons to enable/disable gameobjects directly from the hierarchy.
+This package adds buttons to enable/disable gameobjects directly from the hierarchy. +
+In the preferences the package can be customized and disabled individually per user
+(menu:Edit[Preferences... > Hierarchy > Active Toggle]).
 
 ifdef::env-github[]
 ++++
