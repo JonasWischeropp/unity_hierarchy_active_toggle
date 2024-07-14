@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 
 namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
-    [FilePath("HierarchyActiveToggle/Settings.asset", FilePathAttribute.Location.PreferencesFolder)]
+    [FilePath("Hierarchy/ActiveToggle/Settings.asset", FilePathAttribute.Location.PreferencesFolder)]
     internal class ActiveToggleSettings : ScriptableSingleton<ActiveToggleSettings> {
         [field: SerializeField]
         public bool Enabled {get; private set;} = true;
