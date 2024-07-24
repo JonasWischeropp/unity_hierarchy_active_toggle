@@ -34,7 +34,7 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
             }
 
             // Redraw the line indicating a prefab that was modified because it is under the toggle box now
-            if (PrefabUtility.IsPartOfRegularPrefab(go)
+            if (PrefabUtility.IsPartOfAnyPrefab(go)
                 && PrefabUtility.GetOutermostPrefabInstanceRoot(go) == go
                 && PrefabUtility.GetObjectOverrides(go).Count != 0) {
                 bool selected = Selection.objects.Contains(go);
