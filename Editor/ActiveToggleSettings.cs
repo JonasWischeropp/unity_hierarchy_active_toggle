@@ -18,29 +18,17 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
             var keywords = new string[]{"Hierarchy", "Alignment"};
             return new SettingsProvider("Preferences/Hierarchy/Active Toggle", SettingsScope.User, keywords) {
                 guiHandler = (searchContext) => {
+                    EditorGUI.BeginChangeCheck();
+
                     instance.SetEnabled(EditorGUILayout.Toggle(
                         new GUIContent("Active", "Enable/Disable the package"), instance.Enabled));
                     instance.SetAlignment((ToggleAlignment)EditorGUILayout.EnumPopup(
                         new GUIContent("Alignment", "Change alignment"), instance.Alignment));
+                    
+                    if (EditorGUI.EndChangeCheck())
+                        instance.Save(true);
                 }
             };
-        }
-        
-        private void SaveWhenDifferent<T>(T oldValue, T newValue) {
-            if (!oldValue.Equals(newValue))
-                Save(true);
-        }
-        
-        private void SetEnabled(bool enabled) {
-            var old = Enabled;
-            Enabled = enabled;
-            SaveWhenDifferent(old, Enabled);
-        }
-        
-        private void SetAlignment(ToggleAlignment alignment) {
-            var old = Alignment;
-            Alignment = alignment;
-            SaveWhenDifferent(old, Alignment);
         }
     }
 
