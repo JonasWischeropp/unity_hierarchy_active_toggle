@@ -20,10 +20,10 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
                 guiHandler = (searchContext) => {
                     EditorGUI.BeginChangeCheck();
 
-                    instance.SetEnabled(EditorGUILayout.Toggle(
-                        new GUIContent("Active", "Enable/Disable the package"), instance.Enabled));
-                    instance.SetAlignment((ToggleAlignment)EditorGUILayout.EnumPopup(
-                        new GUIContent("Alignment", "Change alignment"), instance.Alignment));
+                    instance.Enabled = EditorGUILayout.Toggle(
+                        new GUIContent("Active", "Enable/Disable the package"), instance.Enabled);
+                    instance.Alignment = (ToggleAlignment)EditorGUILayout.EnumPopup(
+                        new GUIContent("Alignment", "Change alignment"), instance.Alignment);
                     
                     if (EditorGUI.EndChangeCheck())
                         instance.Save(true);
