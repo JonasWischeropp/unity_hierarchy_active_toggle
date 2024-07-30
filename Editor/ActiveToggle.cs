@@ -29,15 +29,15 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
                 && PrefabUtility.GetObjectOverrides(go).Count != 0) {
                 bool selected = Selection.objects.Contains(go);
                 Color color = selected ? Color.white : prefabModifiedColor;
-                Rect prefabLineRect = new Rect(xPosition, selectionRect.y + 1, 3, selectionRect.height - 2);
+                Rect prefabLineRect = new Rect(32, selectionRect.y + 1, 2, selectionRect.height - 2);
                 // Hide old line
                 EditorGUI.DrawRect(prefabLineRect, backgroundColor);
-                prefabLineRect.x += selectionRect.height - 2;
+                prefabLineRect.x = CalculateRectXValue(selectionRect, parentCount);
                 // Draw new line
                 EditorGUI.DrawRect(prefabLineRect, color);
             }
 
-            // Grey out when not active
+            // Gray out when not active
             Color oldColor = GUI.color;
             if (!go.activeInHierarchy)
                 GUI.color = new Color(1,1,1,0.5f);
