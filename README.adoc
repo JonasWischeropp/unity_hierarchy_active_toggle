@@ -20,6 +20,11 @@ endif::[]
 
 (Probably also works in other unity versions. I just have only tested it in 2022.3)
 
+== Keybindings
+[horizontal]
+Middle Mouse::
+Toggle enabled state of hovered gameobject
+
 == Setup
 Installation by using the Package Manager:
 

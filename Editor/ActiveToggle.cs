@@ -44,11 +44,26 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
 
             Rect rect = new Rect(xPosition, selectionRect.y, selectionRect.height, selectionRect.height);
             if (go.activeSelf != EditorGUI.Toggle(rect, go.activeSelf)) {
-                Undo.RecordObject(go, go.activeSelf ? "Disable Object" : "Enable Object");
-                go.SetActive(!go.activeSelf);
+                ToggleGameObjectActiveState(go);
             }
 
             GUI.color = oldColor;
+            
+            if (ActiveToggleSettings.instance.MiddleClickToggle)
+                HandleMiddleMouseClick(selectionRect, go);
+        }
+        
+        private static void HandleMiddleMouseClick(Rect selectionRect, GameObject gameObject) {
+            bool middleMouseButtonPressed = Event.current.button == 2
+                && Event.current.type == EventType.MouseDown;
+            if (selectionRect.Contains(Event.current.mousePosition)  && middleMouseButtonPressed) {
+                ToggleGameObjectActiveState(gameObject);
+            }
+        }
+        
+        private static void ToggleGameObjectActiveState(GameObject gameObject) {
+            Undo.RecordObject(gameObject, gameObject.activeSelf ? "Disable Object" : "Enable Object");
+            gameObject.SetActive(!gameObject.activeSelf);
         }
         
         // Incase that this leads to performance issues:

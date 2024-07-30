@@ -13,6 +13,9 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
         [field: SerializeField]
         public ToggleAlignment Alignment {get; private set;} = ToggleAlignment.Left;
 
+        [field: SerializeField]
+        public bool MiddleClickToggle {get; private set;} = true;
+
         [SettingsProvider]
         public static SettingsProvider CreateHierarchyActiveToggleSettingsProvider() {
             var keywords = new string[]{"Hierarchy", "Alignment"};
@@ -24,6 +27,10 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
                         new GUIContent("Active", "Enable/Disable the package"), instance.Enabled);
                     instance.Alignment = (ToggleAlignment)EditorGUILayout.EnumPopup(
                         new GUIContent("Alignment", "Change alignment"), instance.Alignment);
+                    instance.MiddleClickToggle = EditorGUILayout.Toggle(
+                        new GUIContent("Middle Click Toggle",
+                            "Enable/Disable the ability to enable/disable gameobjects by clicking on them in the hierarchy"),
+                            instance.MiddleClickToggle);
                     
                     if (EditorGUI.EndChangeCheck())
                         instance.Save(true);
