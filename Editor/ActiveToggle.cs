@@ -6,11 +6,12 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
     [InitializeOnLoad]
     internal class ActiveToggle {
         private static readonly Color prefabModifiedColor = new Color(0.05882353f, 0.5058824f, 0.7450981f); // 8AD9FF
+        private static readonly Color backgroundColor = new Color(0.2196078f, 0.2196078f, 0.2196078f); // 383838
         
         static ActiveToggle() {
             EditorApplication.hierarchyWindowItemOnGUI += Draw;
         }
-        
+
         private static void Draw(int instanceID, Rect selectionRect) {
             if (!ActiveToggleSettings.instance.Enabled)
                 return;
@@ -20,18 +21,7 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
                 return;
 
             int parentCount = ActiveToggleSettings.instance.Alignment == ToggleAlignment.Left ? CountParents(go.transform) : 0;
-            GUILayout.BeginArea(new Rect(CalculateRectXValue(selectionRect, parentCount + 1),
-                selectionRect.y, selectionRect.height, selectionRect.height));
-
-            // Grey out when not active
-            Color oldColor = GUI.color;
-            if (!go.activeInHierarchy)
-                GUI.color = new Color(1,1,1,0.5f);
-
-            if (go.activeSelf != GUILayout.Toggle(go.activeSelf, "")) {
-                Undo.RecordObject(go, go.activeSelf ? "Disable Object" : "Enable Object");
-                go.SetActive(!go.activeSelf);
-            }
+            float xPosition = CalculateRectXValue(selectionRect, parentCount + 1);
 
             // Redraw the line indicating a prefab that was modified because it is under the toggle box now
             if (PrefabUtility.IsPartOfAnyPrefab(go)
@@ -39,10 +29,26 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
                 && PrefabUtility.GetObjectOverrides(go).Count != 0) {
                 bool selected = Selection.objects.Contains(go);
                 Color color = selected ? Color.white : prefabModifiedColor;
-                EditorGUI.DrawRect(new Rect(selectionRect.height - 2, 1, 3, selectionRect.height - 2), color);
+                Rect prefabLineRect = new Rect(xPosition, selectionRect.y + 1, 3, selectionRect.height - 2);
+                // Hide old line
+                EditorGUI.DrawRect(prefabLineRect, backgroundColor);
+                prefabLineRect.x += selectionRect.height - 2;
+                // Draw new line
+                EditorGUI.DrawRect(prefabLineRect, color);
             }
+
+            // Grey out when not active
+            Color oldColor = GUI.color;
+            if (!go.activeInHierarchy)
+                GUI.color = new Color(1,1,1,0.5f);
+
+            Rect rect = new Rect(xPosition, selectionRect.y, selectionRect.height, selectionRect.height);
+            if (go.activeSelf != EditorGUI.Toggle(rect, go.activeSelf)) {
+                Undo.RecordObject(go, go.activeSelf ? "Disable Object" : "Enable Object");
+                go.SetActive(!go.activeSelf);
+            }
+
             GUI.color = oldColor;
-            GUILayout.EndArea();
         }
         
         // Incase that this leads to performance issues:
