@@ -1,3 +1,4 @@
 {
-	"name": "JonasWischeropp.Unity.EditorTools.Hierarchy"
+	"name": "JonasWischeropp.Unity.EditorTools.Hierarchy",
+	"includePlatforms": ["Editor"]
 }
