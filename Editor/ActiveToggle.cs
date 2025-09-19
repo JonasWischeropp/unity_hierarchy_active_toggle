@@ -42,7 +42,7 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
             // Redraw the line indicating a prefab that was modified because it is under the toggle box now
             if (PrefabUtility.IsPartOfAnyPrefab(go)
                 && PrefabUtility.GetOutermostPrefabInstanceRoot(go) == go
-                && PrefabUtility.GetObjectOverrides(go).Count != 0) {
+                && PrefabUtility.HasPrefabInstanceAnyOverrides(go, false)) {
                 bool selected = Selection.objects.Contains(go);
                 Color color = selected ? Color.white : prefabModifiedColor;
                 Rect prefabLineRect = new Rect(32, selectionRect.y + 1, 2, selectionRect.height - 2);
