@@ -26,8 +26,8 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
                 return;
 
             var window = Resources.FindObjectsOfTypeAll(hierarchyWindowType)[0];
-            string searchFilter = searchFilterProperty.GetValue(window) as string;
-            bool searching = searchFilter.Length > 0;
+            bool searching = searchFilterProperty != null
+                && (searchFilterProperty.GetValue(window) as string).Length > 0;
 
             int parentCount;
             if (searching)
