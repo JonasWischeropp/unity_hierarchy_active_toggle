@@ -76,7 +76,7 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
             gameObject.SetActive(!gameObject.activeSelf);
         }
 
-        // Incase that this leads to performance issues:
+        // In the case that this leads to performance issues:
         // It would be possible to cache the last object for each level
         // and then look up the parent to get its level.
         private static int CountParents(Transform transform) {
