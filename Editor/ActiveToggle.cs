@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,9 +8,6 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
     internal class ActiveToggle {
         private static readonly Color prefabModifiedColor = new Color(0.05882353f, 0.5058824f, 0.7450981f); // 8AD9FF
         private static readonly Color backgroundColor = new Color(0.2196078f, 0.2196078f, 0.2196078f); // 383838
-
-        static Type hierarchyWindowType = Type.GetType("UnityEditor.SceneHierarchyWindow, UnityEditor");
-        static PropertyInfo searchFilterProperty = hierarchyWindowType.GetProperty("searchText");
 
         static ActiveToggle() {
             EditorApplication.hierarchyWindowItemOnGUI += Draw;
@@ -25,9 +21,7 @@ namespace JonasWischeropp.Unity.EditorTools.Hierarchy {
             if (go == null)
                 return;
 
-            var window = Resources.FindObjectsOfTypeAll(hierarchyWindowType)[0];
-            bool searching = searchFilterProperty != null
-                && (searchFilterProperty.GetValue(window) as string).Length > 0;
+            bool searching = selectionRect.xMin == 46f;
 
             int parentCount;
             if (searching)
